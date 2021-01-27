@@ -37,7 +37,7 @@ public class CheckObject : MonoBehaviour
         else
         {
 
-            ShowText.text = " [ <color=red>" + EnterText.text + "</color> ] is found ";
+            ShowText.text = " [ <color=red>" + EnterText.text + "</color> ] is not found ";
             
         }
     }
