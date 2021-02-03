@@ -47,6 +47,7 @@ namespace ProgramChat
                 }
             }
 
+
         }
 
         public void ClientConnect()
@@ -56,6 +57,7 @@ namespace ProgramChat
                 websocket = new WebSocket("ws://" + IdText.text + ":" + PortText.text);
                 websocket.Connect();
                 ChatWindow.SetActive(true);
+                websocket.OnMessage += OnMessage;
             }
         }
 
@@ -71,50 +73,39 @@ namespace ProgramChat
 
         public void SendMessage()
         {
-            if(websocket.ReadyState == WebSocketState.Open)
+            websocket.OnMessage += OnMessage;
+            if (websocket.ReadyState == WebSocketState.Open)
             {
                 websocket.Send(MessageText.text);
-                MeText.text = MessageText.text;
-                websocket.OnMessage += OnMessage;
-                
+
+                //websocket.OnMessage += OnMessage;
+
 
             }
         }
 
         
 
-        //public void OnYouMessage(object sender, MessageEventArgs messageEventArgs)
-        //{
-        //    Debug.Log(messageEventArgs.Data);
-        //    messageServerList.Add(messageEventArgs.Data);
-            
-        //    current = previous;
-        //    previous +=1;
-
-           
-        //}
+        
 
         public void OnMessage(object sender, MessageEventArgs messageEventArgs)
         {
-
-            //messageServerList.Add(messageEventArgs.Data);
-            
-             if (messageEventArgs.Data != MeText.text)
+             if (messageEventArgs.Data == MessageText.text)
             {
+                
+                messageServerList.Add(messageEventArgs.Data);
+                previous = current;
+                current += 1;
 
+
+            }
+            else 
+            {
+                
                 messageServerList.Add(messageEventArgs.Data);
                 current = previous;
                 previous += 1;
-              
-            }
-            else /*if (messageEventArgs.Data != YouText.text)*/
-            {
-
-                messageServerList.Add(messageEventArgs.Data);
-
-                previous = current;
-                current += 1;
-               
+                
             }
 
 
