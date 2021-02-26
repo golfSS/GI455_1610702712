@@ -1,21 +1,21 @@
-var websocket = require('ws');
+    var websocket = require('ws');
 
-var callbackInitServer = ()=>{
+    var callbackInitServer = ()=>{
     console.log("seawserver is running.");
-}
+    }
 
-var wss = new websocket.Server({port:5501}, callbackInitServer);
+    var wss = new websocket.Server({port:5501}, callbackInitServer);
 
-var wsList = [];
-var roomList = [];
+    var wsList = [];
+    var roomList = [];
 
-/*
-{
+    /*
+    {
     roomName: "xxx",
-}
-*/
+    }
+    */
 
-wss.on("connection", (ws)=>{
+    wss.on("connection", (ws)=>{
     {
         //LobbyZone
         ws.on("message", (data)=>{
@@ -232,16 +232,16 @@ wss.on("connection", (ws)=>{
 
 function ArrayRemove(arr, value)
 {
-   return arr.filter((element)=>{
-        return element != value;
-    });
+    return arr.filter((element)=>{
+    return element != value;
+     });
 }
 
 function Boardcast(data)
 {
     for(var i = 0; i < wsList.length; i++)
     {
-        wsList[i].send(data);
+     wsList[i].send(data);
     }
 }
 
